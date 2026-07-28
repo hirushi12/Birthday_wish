@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Royal Birthday Wishes 👑</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+        /* ─── All CSS (same as before – I've kept it compact) ─── */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0a0a0a;
+            color: #f5d742;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+        }
+        input, button, textarea {
+            font-family: 'Poppins', sans-serif;
+        }
+        .galaxy {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 30% 30%, #1a1a3e 0%, #000 80%);
+            z-index: -3;
+        }
+        .palace {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 20%, #1a2a6c, #000 75%);
+            z-index: -2;
+            opacity: 0.6;
+        }
+        .view {
+            position: fixed;
+            inset: 0;
+            z-index: 20;
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .view.active {
+            display: flex;
+        }
+        .countdown {
+            position: fixed;
+            inset: 0;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 140px;
+            font-weight: 900;
+            color: #e50914;
+            z-index: 1000;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 10px;
+            text-shadow: 0 0 60px rgba(229, 9, 20, 0.5);
+            transition: opacity 0.5s;
+        }
+        .countdown.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .introText {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Cinzel', serif;
+            font-size: 64px;
+            letter-spacing: 8px;
+            background: #000;
+            color: #f5d742;
+            z-index: 900;
+            animation: zoomFade 4.5s forwards;
+            animation-delay: 3s;
+            text-shadow: 0 0 40px rgba(245, 215, 66, 0.3);
+            padding: 20px;
+            text-align: center;
+        }
+        @keyframes zoomFade {
+            0% { transform: scale(0.4); opacity: 0; }
+            40% { transform: scale(1.05); opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+        @media (max-width: 600px) {
+            .introText { font-size: 28px; letter-spacing: 4px; }
+            .countdown { font-size: 80px; }
+        }
+        #fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .card {
+            background: rgba(10, 10, 30, 0.8);
+            padding: 40px 36px 45px;
+            border-radius: 32px;
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            text-align: center;
+            border: 1px solid rgba(245, 215, 66, 0.2);
+            box-shadow: 0 0 60px rgba(245, 215, 66, 0.1);
+            max-width: 480px;
+            width: 100%;
+            animation: cardGlow 3s infinite alternate;
+            max-height: 90vh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        @keyframes cardGlow {
+            0% { box-shadow: 0 0 40px rgba(245, 215, 66, 0.1); }
+            100% { box-shadow: 0 0 90px rgba(245, 215, 66, 0.25); }
+        }
+        .card h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 26px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            color: #f5d742;
+            margin-bottom: 8px;
+        }
+        .card p.sub {
+            color: rgba(255, 255, 255, 0.55);
+            font-size: 14px;
+            margin-bottom: 22px;
+            letter-spacing: 1px;
+        }
+        .card button {
+            padding: 14px 40px;
+            border: none;
+            border-radius: 50px;
+            background: linear-gradient(135deg, #f5d742, #e6a100);
+            font-weight: 700;
+            font-size: 17px;
+            cursor: pointer;
+            color: #1a1a2e;
+            transition: all 0.25s;
+            box-shadow: 0 4px 25px rgba(245, 215, 66, 0.25);
+            letter-spacing: 1px;
+            touch-action: manipulation;
+            width: 100%;
+            max-width: 300px;
+        }
+        .card button:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 40px rgba(245, 215, 66, 0.4);
+        }
+        .card button:active {
+            transform: scale(0.96);
+        }
+        .card .admin-link {
+            display: inline-block;
+            margin-top: 16px;
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 13px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .card .admin-link:hover {
+            color: rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .card .back-link {
+            display: inline-block;
+            margin-top: 14px;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 13px;
+            text-decoration: none;
+            cursor: pointer;
+            padding: 6px 14px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.2s;
+        }
+        .card .back-link:hover {
+            color: rgba(255, 255, 255, 0.5);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .hidden {
+            display: none !important;
+        }
+        #birthdayText {
+            font-family: 'Cinzel', serif;
+            font-size: 44px;
+            font-weight: 800;
+            color: #f5d742;
+            text-shadow: 0 0 30px rgba(245, 215, 66, 0.2);
+            line-height: 1.3;
+            min-height: 70px;
+            word-break: break-word;
+        }
+        #birthdayText .highlight {
+            color: #ffd700;
+            text-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+        }
+        @media (max-width: 500px) {
+            #birthdayText { font-size: 28px; min-height: 50px; }
+            .card { padding: 28px 20px 32px; }
+            .card h2 { font-size: 20px; }
+        }
+        @media (max-width: 380px) {
+            #birthdayText { font-size: 22px; }
+        }
+        .cake {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .layer {
+            width: 180px;
+            height: 38px;
+            background: linear-gradient(to right, #f5d742, #e6a100);
+            border-radius: 16px;
+            margin: 3px auto;
+            box-shadow: inset 0 -3px 0 rgba(0,0,0,0.12);
+        }
+        .layer:nth-child(2) {
+            width: 150px;
+            height: 32px;
+            background: linear-gradient(to right, #f0c840, #d49000);
+        }
+        .layer:nth-child(3) {
+            width: 120px;
+            height: 26px;
+            background: linear-gradient(to right, #e8b830, #c08000);
+        }
+        .candle {
+            width: 10px;
+            height: 38px;
+            background: linear-gradient(to right, #f0f0f0, #d0d0d0);
+            margin: 0 auto 3px;
+            position: relative;
+            border-radius: 3px 3px 0 0;
+            box-shadow: inset -2px 0 4px rgba(0,0,0,0.08);
+        }
+        .flame {
+            width: 16px;
+            height: 20px;
+            background: radial-gradient(circle at 30% 20%, #fff7a0, #f5a000);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flicker 0.18s infinite alternate;
+            box-shadow: 0 0 40px rgba(245, 160, 0, 0.5);
+        }
+        @keyframes flicker {
+            0% { transform: translateX(-50%) scale(1) rotate(-2deg); }
+            100% { transform: translateX(-50%) scale(1.2) rotate(2deg); }
+        }
+        @media (max-width: 500px) {
+            .layer { width: 140px; height: 30px; }
+            .layer:nth-child(2) { width: 115px; height: 26px; }
+            .layer:nth-child(3) { width: 90px; height: 20px; }
+            .candle { height: 30px; width: 8px; }
+            .flame { width: 13px; height: 16px; top: -16px; }
+        }
+        .sparkle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            transform: rotate(45deg);
+            animation: spark 3s linear infinite;
+            z-index: 5;
+            pointer-events: none;
+            opacity: 0;
+        }
+        @keyframes spark {
+            0% { transform: translateY(0) rotate(45deg); opacity: 0.9; }
+            100% { transform: translateY(-400px) rotate(45deg); opacity: 0; }
+        }
+        .balloon {
+            position: fixed;
+            bottom: -140px;
+            width: 55px;
+            height: 72px;
+            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            animation: floatUp linear infinite;
+            z-index: 4;
+            pointer-events: none;
+            box-shadow: inset -6px -6px 16px rgba(0,0,0,0.15);
+        }
+        .balloon::after {
+            content: '';
+            position: absolute;
+            width: 1.5px;
+            height: 50px;
+            background: rgba(255,255,255,0.2);
+            left: 50%;
+            bottom: -48px;
+            transform: translateX(-50%);
+        }
+        .balloon::before {
+            content: '';
+            position: absolute;
+            width: 10px;
+            height: 12px;
+            background: inherit;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%) rotate(45deg);
+            border-radius: 0 0 50% 50%;
+            clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(15deg) scale(0.7); opacity: 0; }
+        }
+        .confetti {
+            position: fixed;
+            width: 8px;
+            height: 8px;
+            top: -20px;
+            animation: confettiFall linear infinite;
+            z-index: 3;
+            pointer-events: none;
+            border-radius: 2px;
+            opacity: 0.9;
+        }
+        @keyframes confettiFall {
+            0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(720deg) scale(0.3); opacity: 0; }
+        }
+        .admin-login-form {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto;
+        }
+        .admin-login-form input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05);
+            color: #fff;
+            font-size: 15px;
+            margin-bottom: 14px;
+            transition: border-color 0.3s;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        .admin-login-form input:focus {
+            border-color: #f5d742;
+        }
+        .admin-login-form input::placeholder {
+            color: rgba(255,255,255,0.3);
+        }
+        .admin-login-form .error-msg {
+            color: #ff6b6b;
+            font-size: 13px;
+            margin-bottom: 12px;
+            min-height: 20px;
+        }
+        .admin-login-form button {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f5d742, #e6a100);
+            font-weight: 700;
+            font-size: 17px;
+            cursor: pointer;
+            color: #1a1a2e;
+            transition: all 0.25s;
+            touch-action: manipulation;
+        }
+        .admin-login-form button:active {
+            transform: scale(0.96);
+        }
+        .admin-dashboard {
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: left;
+        }
+        .admin-dashboard .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 18px;
+        }
+        .admin-dashboard .header h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            color: #f5d742;
+        }
+        .admin-dashboard .header .logout-btn {
+            padding: 6px 18px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.15);
+            background: transparent;
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+        .admin-dashboard .header .logout-btn:active {
+            transform: scale(0.95);
+        }
+        .admin-dashboard .header .logout-btn:hover {
+            border-color: rgba(255,255,255,0.3);
+            color: rgba(255,255,255,0.8);
+        }
+        .admin-dashboard .add-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: rgba(255,255,255,0.03);
+            padding: 16px;
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .admin-dashboard .add-form .row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .admin-dashboard .add-form .row input {
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.04);
+            color: #fff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.3s;
+            -webkit-appearance: none;
+        }
+        .admin-dashboard .add-form .row input:focus {
+            border-color: #f5d742;
+        }
+        .admin-dashboard .add-form .row input::placeholder {
+            color: rgba(255,255,255,0.25);
+        }
+        .admin-dashboard .add-form .row button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f5d742, #e6a100);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            color: #1a1a2e;
+            transition: all 0.2s;
+            touch-action: manipulation;
+            white-space: nowrap;
+        }
+        .admin-dashboard .add-form .row button:active {
+            transform: scale(0.95);
+        }
+        .admin-dashboard .birthday-list {
+            max-height: 300px;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-top: 6px;
+        }
+        .admin-dashboard .birthday-list .item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 14px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            margin-bottom: 6px;
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: background 0.2s;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .admin-dashboard .birthday-list .item .info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            flex: 1;
+            min-width: 100px;
+        }
+        .admin-dashboard .birthday-list .item .info .name {
+            font-weight: 600;
+            color: #fff;
+            font-size: 15px;
+        }
+        .admin-dashboard .birthday-list .item .info .date {
+            color: rgba(255,255,255,0.4);
+            font-size: 13px;
+        }
+        .admin-dashboard .birthday-list .item .actions {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+        }
+        .admin-dashboard .birthday-list .item .actions button {
+            padding: 6px 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+        .admin-dashboard .birthday-list .item .actions .edit-btn {
+            background: rgba(245,215,66,0.15);
+            color: #f5d742;
+        }
+        .admin-dashboard .birthday-list .item .actions .edit-btn:active {
+            transform: scale(0.92);
+        }
+        .admin-dashboard .birthday-list .item .actions .delete-btn {
+            background: rgba(255,107,107,0.12);
+            color: #ff6b6b;
+        }
+        .admin-dashboard .birthday-list .item .actions .delete-btn:active {
+            transform: scale(0.92);
+        }
+        .admin-dashboard .empty-msg {
+            color: rgba(255,255,255,0.3);
+            text-align: center;
+            padding: 30px 0;
+            font-size: 14px;
+        }
+        .edit-inline {
+            display: none;
+            gap: 8px;
+            flex-wrap: wrap;
+            width: 100%;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .edit-inline.open {
+            display: flex;
+        }
+        .edit-inline input {
+            flex: 1;
+            min-width: 80px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.04);
+            color: #fff;
+            font-size: 13px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+        .edit-inline input:focus {
+            border-color: #f5d742;
+        }
+        .edit-inline button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+        .edit-inline .save-edit {
+            background: linear-gradient(135deg, #f5d742, #e6a100);
+            color: #1a1a2e;
+        }
+        .edit-inline .cancel-edit {
+            background: rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.4);
+        }
+        .birthday-list::-webkit-scrollbar {
+            width: 4px;
+        }
+        .birthday-list::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.02);
+            border-radius: 4px;
+        }
+        .birthday-list::-webkit-scrollbar-thumb {
+            background: rgba(245,215,66,0.2);
+            border-radius: 4px;
+        }
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(10,10,30,0.9);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 14px 28px;
+            border-radius: 16px;
+            border: 1px solid rgba(245,215,66,0.15);
+            color: #fff;
+            font-size: 14px;
+            z-index: 999;
+            transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s;
+            opacity: 0;
+            pointer-events: none;
+            text-align: center;
+            max-width: 90vw;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        .toast.success {
+            border-color: rgba(46,213,115,0.3);
+        }
+        .toast.error {
+            border-color: rgba(255,107,107,0.3);
+        }
+        @media (max-width: 480px) {
+            .admin-dashboard .add-form .row { flex-direction: column; }
+            .admin-dashboard .add-form .row input { min-width: unset; width: 100%; }
+            .admin-dashboard .add-form .row button { width: 100%; justify-content: center; }
+            .admin-dashboard .birthday-list .item { flex-direction: column; align-items: stretch; }
+            .admin-dashboard .birthday-list .item .actions { justify-content: flex-end; margin-top: 4px; }
+            .edit-inline { flex-direction: column; }
+            .edit-inline input { min-width: unset; width: 100%; }
+            .edit-inline .row-btns { display: flex; gap: 6px; }
+            .edit-inline .row-btns button { flex: 1; }
+        }
+        @media (max-width: 380px) {
+            .card { padding: 20px 14px 24px; border-radius: 24px; }
+            .admin-dashboard .header h3 { font-size: 16px; }
+            .admin-dashboard .birthday-list .item .info .name { font-size: 13px; }
+        }
+        @supports (padding: max(0px)) {
+            .view {
+                padding-left: max(20px, env(safe-area-inset-left));
+                padding-right: max(20px, env(safe-area-inset-right));
+                padding-top: max(20px, env(safe-area-inset-top));
+                padding-bottom: max(20px, env(safe-area-inset-bottom));
+            }
+        }
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: #f5d742;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+
+    <!-- ─── Backgrounds ─── -->
+    <div class="galaxy"></div>
+    <div class="palace"></div>
+
+    <!-- ─── Countdown ─── -->
+    <div class="countdown" id="countdown">3</div>
+
+    <!-- ─── Intro ─── -->
+    <div class="introText">👑 A Royal Birthday Celebration 👑</div>
+
+    <!-- ─── Fireworks Canvas ─── -->
+    <canvas id="fireworks"></canvas>
+
+    <!-- ─── Music ─── -->
+    <audio id="music" loop>
+        <source src="music.mp3" type="audio/mpeg" />
+    </audio>
+
+    <!-- ─── VIEW: Main Celebration ─── -->
+    <div class="view active" id="viewMain">
+        <div class="card" id="startCard">
+            <h2>✦ The Royal Moment Awaits ✦</h2>
+            <p class="sub" id="startSub">✨ Loading celebration... ✨</p>
+            <button onclick="startCelebration()">👑 Surprise! Enjoy Now 🎆</button>
+            <span class="admin-link" onclick="navigateTo('admin')">⚜️ Admin Panel</span>
+        </div>
+
+        <div class="card hidden" id="celebrationCard">
+            <h1 id="birthdayText"></h1>
+            <div class="cake">
+                <div class="layer"></div>
+                <div class="layer"></div>
+                <div class="layer"></div>
+                <div class="candle"><div class="flame"></div></div>
+            </div>
+            <p style="margin-top:18px;font-size:13px;color:rgba(255,255,255,0.2);letter-spacing:1px;">
+                ✦ May your day be filled with joy &amp; magic ✦
+            </p>
+        </div>
+    </div>
+
+    <!-- ─── VIEW: Admin Login ─── -->
+    <div class="view" id="viewAdmin">
+        <div class="card" style="max-width:400px;">
+            <h2>⚜️ Admin Access</h2>
+            <p class="sub">Enter credentials to manage birthday wishes</p>
+            <form class="admin-login-form" id="adminLoginForm" onsubmit="return handleAdminLogin(event)">
+                <div class="error-msg" id="loginError"></div>
+                <input type="text" id="adminUser" placeholder="Username" />
+                <input type="password" id="adminPass" placeholder="Password" />
+                <button type="submit">🔓 Login</button>
+            </form>
+            <span class="back-link" onclick="navigateTo('main')">← Back to Celebration</span>
+        </div>
+    </div>
+
+    <!-- ─── VIEW: Admin Dashboard ─── -->
+    <div class="view" id="viewDashboard">
+        <div class="card" style="max-width:520px;padding:28px 24px 32px;">
+            <div class="admin-dashboard">
+                <div class="header">
+                    <h3>⚜️ Birthday Manager</h3>
+                    <button class="logout-btn" onclick="handleLogout()">🚪 Logout</button>
+                </div>
+
+                <div class="add-form">
+                    <div class="row">
+                        <input type="text" id="addName" placeholder="Full name" />
+                        <input type="date" id="addDate" />
+                        <button onclick="handleAddBirthday()">➕ Add</button>
+                    </div>
+                </div>
+
+                <div class="birthday-list" id="birthdayListContainer">
+                    <div class="empty-msg">Loading birthdays...</div>
+                </div>
+
+                <span class="back-link" onclick="navigateTo('main')" style="margin-top:16px;">← Back to Celebration</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ─── Toast ─── -->
+    <div class="toast" id="toast"></div>
+
+    <!-- ─── Firebase SDK (Compat) ─── -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        // ──────────────────────────────────────────────────────────
+        //  🔥 FIREBASE CONFIG – YOUR CONFIG (inserted directly)
+        // ──────────────────────────────────────────────────────────
+        const firebaseConfig = {
+            apiKey: "AIzaSyC-fMaurAgCH_4KqxfqkegTSfPkXAXQZbQ",
+            authDomain: "birthdaywishes-b037b.firebaseapp.com",
+            projectId: "birthdaywishes-b037b",
+            storageBucket: "birthdaywishes-b037b.firebasestorage.app",
+            messagingSenderId: "1098062845893",
+            appId: "1:1098062845893:web:5655c0247519bae6a11dac"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        // ──────────────────────────────────────────────────────────
+        //  STATE
+        // ──────────────────────────────────────────────────────────
+        let birthdayName = '';
+        let birthdayData = null;
+        let currentView = 'main';
+        let isCelebrating = false;
+        let editingId = null; // Firestore document ID
+        let allBirthdays = []; // cached array of {id, name, date}
+
+        // ──────────────────────────────────────────────────────────
+        //  DOM REFS
+        // ──────────────────────────────────────────────────────────
+        const countdownEl = document.getElementById('countdown');
+        const startCard = document.getElementById('startCard');
+        const celebrationCard = document.getElementById('celebrationCard');
+        const birthdayTextEl = document.getElementById('birthdayText');
+        const musicEl = document.getElementById('music');
+        const startSub = document.getElementById('startSub');
+
+        const canvas = document.getElementById('fireworks');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animFrame = null;
+        let fireworksInterval = null;
+
+        // ──────────────────────────────────────────────────────────
+        //  CANVAS
+        // ──────────────────────────────────────────────────────────
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // ──────────────────────────────────────────────────────────
+        //  TOAST
+        // ──────────────────────────────────────────────────────────
+        let toastTimeout = null;
+
+        function showToast(msg, type = 'success') {
+            const el = document.getElementById('toast');
+            el.textContent = msg;
+            el.className = 'toast ' + type;
+            void el.offsetWidth;
+            el.classList.add('show');
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                el.classList.remove('show');
+            }, 2800);
+        }
+
+        // ──────────────────────────────────────────────────────────
+        //  NAVIGATION
+        // ──────────────────────────────────────────────────────────
+        function navigateTo(view) {
+            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+            if (view === 'main') {
+                document.getElementById('viewMain').classList.add('active');
+                currentView = 'main';
+            } else if (view === 'admin') {
+                document.getElementById('viewAdmin').classList.add('active');
+                currentView = 'admin';
+                document.getElementById('loginError').textContent = '';
+            } else if (view === 'dashboard') {
+                document.getElementById('viewDashboard').classList.add('active');
+                currentView = 'dashboard';
+                renderBirthdayList();
+            }
+        }
+
+        // ──────────────────────────────────────────────────────────
+        //  ADMIN LOGIN
+        // ──────────────────────────────────────────────────────────
+        const ADMIN_CREDENTIALS = { username: 'admin', password: 'admin123' };
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const userEl = document.getElementById('adminUser');
+            const passEl = document.getElementById('adminPass');
+            const user = userEl.value.trim();
+            const pass = passEl.value.trim();
+            const errEl = document.getElementById('loginError');
+
+            if (user === ADMIN_CREDENTIALS.username && pass === ADMIN_CREDENTIALS.password) {
+                errEl.textContent = '';
+                userEl.value = '';
+                passEl.value = '';
+                navigateTo('dashboard');
+                renderBirthdayList();
+                showToast('✅ Welcome, Admin!', 'success');
+            } else {
+                errEl.textContent = '❌ Invalid username or password';
+                showToast('❌ Login failed', 'error');
+            }
+            return false;
+        }
+
+        function handleLogout() {
+            navigateTo('main');
+            showToast('🔓 Logged out', 'success');
+        }
+
+        // ──────────────────────────────────────────────────────────
+        //  🔥 FIRESTORE CRUD OPERATIONS
+        // ──────────────────────────────────────────────────────────
+
+        // Read all birthdays from Firestore
+        async function loadBirthdaysFromFirestore() {
+            try {
+                const snapshot = await db.collection('birthdays').orderBy('date').get();
+                allBirthdays = [];
+                snapshot.forEach(doc => {
+                    allBirthdays.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+                return allBirthdays;
+            } catch (error) {
+                console.error('Error loading birthdays:', error);
+                showToast('❌ Failed to load data from cloud', 'error');
+                return [];
+            }
+        }
+
+        // Add a new birthday to Firestore
+        async function addBirthdayToFirestore(name, date) {
+            try {
+                const docRef = await db.collection('birthdays').add({
+                    name: name.trim(),
+                    date: date // format: MM-DD
+                });
+                return { id: docRef.id, name: name.trim(), date: date };
+            } catch (error) {
+                console.error('Error adding birthday:', error);
+                showToast('❌ Failed to save to cloud', 'error');
+                return null;
+            }
+        }
+
+        // Update a birthday in Firestore
+        async function updateBirthdayInFirestore(id, name, date) {
+            try {
+                await db.collection('birthdays').doc(id).update({
+                    name: name.trim(),
+                    date: date
+                });
+                return true;
+            } catch (error) {
+                console.error('Error updating birthday:', error);
+                showToast('❌ Failed to update in cloud', 'error');
+                return false;
+            }
+        }
+
+        // Delete a birthday from Firestore
+        async function deleteBirthdayFromFirestore(id) {
+            try {
+                await db.collection('birthdays').doc(id).delete();
+                return true;
+            } catch (error) {
+                console.error('Error deleting birthday:', error);
+                showToast('❌ Failed to delete from cloud', 'error');
+                return false;
+            }
+        }
+
+        // ──────────────────────────────────────────────────────────
+        //  TODAY'S BIRTHDAY (from cached allBirthdays)
+        // ──────────────────────────────────────────────────────────
+        function getTodayStr() {
+            const d = new Date();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${month}-${day}`;
+        }
+
+        function findTodayBirthday() {
+            const today = getTodayStr();
+            return allBirthdays.find(item => item.date === today) || null;
+        }
+
+        // ──────────────────────────────────────────────────────────
+        //  RENDER BIRTHDAY LIST (Admin) – from allBirthdays
+        // ──────────────────────────────────────────────────────────
+        function renderBirthdayList() {
+            const container = document.getElementById('birthdayListContainer');
+            if (!container) return;
+
+            if (allBirthdays.length === 0) {
+                container.innerHTML = `<div class="empty-msg">🎂 No birthdays added yet.<br/>Add one above!</div>`;
+                return;
+            }
+
+            let html = '';
+            allBirthdays.forEach((item) => {
+                const isEditing = editingId === item.id;
+                const dateDisplay = formatDateDisplay(item.date);
+                html += `
+                    <div class="item" data-id="${item.id}">
+                        <div class="info">
+                            <div class="name">${escapeHtml(item.name)}</div>
+                            <div class="date">📅 ${dateDisplay}</div>
+                        </div>
+                        <div class="actions">
+                            <button class="edit-btn" onclick="startEdit('${item.id}')">✏️ Edit</button>
+                            <button class="delete-btn" onclick="handleDelete('${item.id}')">🗑️</button>
+                        </div>
+                        <div class="edit-inline ${isEditing ? 'open' : ''}" id="editRow_${item.id}">
+                            <input type="text" id="editName_${item.id}" value="${escapeHtml(item.name)}" placeholder="Name" />
+                            <input type="date" id="editDate_${item.id}" value="${item.date}" />
+                            <div class="row-btns">
+                                <button class="save-edit" onclick="saveEdit('${item.id}')">💾 Save</button>
+                                <button class="cancel-edit" onclick="cancelEdit()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function formatDateDisplay(dateStr) {
+            if (!dateStr) return 'Unknown';
+            const parts = dateStr.split('-');
+            if (parts.length !== 2) return dateStr;
+            const month = parseInt(parts[0]);
+            const day = parseInt(parts[1]);
+            const months = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'
+            ];
+            return `${months[month - 1]} ${day}`;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ──────────────────────────────────────────────────────────
+        //  ADMIN CRUD – using Firestore
+        // ──────────────────────────────────────────────────────────
+        async function handleAddBirthday() {
+            const nameInput = document.getElementById('addName');
+            const dateInput = document.getElementById('addDate');
+            const name = nameInput.value.trim();
+            const date = dateInput.value;
+
+            if (!name) {
+                showToast('❌ Please enter a name', 'error');
+                nameInput.focus();
+                return;
+            }
+            if (!date) {
+                showToast('❌ Please select a date', 'error');
+                dateInput.focus();
+                return;
+            }
+
+            const parts = date.split('-');
+            const formatted = `${parts[1]}-${parts[2]}`;
+
+            // Check duplicate locally
+            if (allBirthdays.some(item => item.name.toLowerCase() === name.toLowerCase() && item.date === formatted)) {
+                showToast('⚠️ This birthday already exists', 'error');
+                return;
+            }
+
+            // Add to Firestore
+            const result = await addBirthdayToFirestore(name, formatted);
+            if (result) {
+                allBirthdays.push(result);
+                allBirthdays.sort((a, b) => a.date.localeCompare(b.date));
+                nameInput.value = '';
+                dateInput.value = '';
+                renderBirthdayList();
+                showToast(`✅ Added ${name} to cloud`, 'success');
+            }
+        }
+
+        function startEdit(id) {
+            editingId = id;
+            renderBirthdayList();
+            setTimeout(() => {
+                const inp = document.getElementById(`editName_${id}`);
+                if (inp) inp.focus();
+            }, 100);
+        }
+
+        function cancelEdit() {
+            editingId = null;
+            renderBirthdayList();
+        }
+
+        async function saveEdit(id) {
+            const nameInput = document.getElementById(`editName_${id}`);
+            const dateInput = document.getElementById(`editDate_${id}`);
+            const name = nameInput.value.trim();
+            const date = dateInput.value;
+
+            if (!name) {
+                showToast('❌ Name cannot be empty', 'error');
+                nameInput.focus();
+                return;
+            }
+            if (!date) {
+                showToast('❌ Please select a date', 'error');
+                dateInput.focus();
+                return;
+            }
+
+            const parts = date.split('-');
+            const formatted = `${parts[1]}-${parts[2]}`;
+
+            const success = await updateBirthdayInFirestore(id, name, formatted);
+            if (success) {
+                // Update local cache
+                const index = allBirthdays.findIndex(item => item.id === id);
+                if (index !== -1) {
+                    allBirthdays[index] = { id, name: name.trim(), date: formatted };
+                    allBirthdays.sort((a, b) => a.date.localeCompare(b.date));
+                }
+                editingId = null;
+                renderBirthdayList();
+                showToast(`✅ Updated ${name}`, 'success');
+            }
+        }
+
+        async function handleDelete(id) {
+            const item = allBirthdays.find(b => b.id === id);
+            const name = item?.name || 'Birthday';
+            if (confirm(`🗑️ Delete "${name}"?`)) {
+                const success = await deleteBirthdayFromFirestore(id);
+                if (success) {
+                    allBirthdays = allBirthdays.filter(b => b.id !== id);
+                    if (editingId === id) editingId = null;
+                    renderBirthdayList();
+                    showToast(`🗑️ Deleted ${name}`, 'success');
+                }
+            }
+        }
+
+        // ──────────────────────────────────────────────────────────
+        //  COUNTDOWN
+        // ──────────────────────────────────────────────────────────
+        function startCountdown() {
+            let count = 3;
+            countdownEl.textContent = count;
+            const interval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdownEl.textContent = count;
+                } else {
+                    clearInterval(interval);
+                    countdownEl.classList.add('hidden');
+                    const todayBday = findTodayBirthday();
+                    if (todayBday) {
+                        birthdayName = todayBday.name;
+                        birthdayData = todayBday;
+                        startSub.textContent = `✨ Today we celebrate ${birthdayName}! ✨`;
+                    } else {
+                        const today = new Date().toLocaleDateString('en-US', {
+                            month: 'long',
+                            day: 'numeric'
+                        });
+                        startSub.innerHTML = `📅 ${today} — No birthday today, but you're still royal!`;
+                        birthdayName = 'Friend';
+                        birthdayData = null;
+                    }
+                    startCard.classList.remove('hidden');
+                }
+            }, 1000);
+        }
+
+        // ──────────────────────────────────────────────────────────
+        //  CELEBRATION
+        // ──────────────────────────────────────────────────────────
+        function startCelebration() {
+            if (isCelebrating) return;
+            isCelebrating = true;
+
+            startCard.classList.add('hidden');
+            celebrationCard.classList.remove('hidden');
+
+            musicEl.play().catch(() => {});
+
+            typeEffect();
+            startFireworks();
+            createSparkles();
+            createBalloons();
+            createConfetti();
+        }
+
+        function typeEffect() {
+            const name = birthdayName || 'Friend';
+            const text = `Happy Birthday, ${name}! 👑`;
+            birthdayTextEl.innerHTML = '';
+            let i = 0;
+            const typing = setInterval(() => {
+                if (i < text.length) {
+                    const char = text.charAt(i);
+                    if (char === '👑') {
+                        birthdayTextEl.innerHTML += `<span class="highlight">${char}</span>`;
+                    } else {
+                        birthdayTextEl.innerHTML += char;
+                    }
+                    i++;
+                } else {
+                    clearInterval(typing);
+                }
+            }, 70);
+        }
+
+        // ──────────────────────────────────────────────────────────
+        //  FIREWORKS, SPARKLES, BALLOONS, CONFETTI
+        // ──────────────────────────────────────────────────────────
+        function startFireworks() {
+            if (fireworksInterval) clearInterval(fireworksInterval);
+            fireworksInterval = setInterval(() => {
+                for (let i = 0; i < 45; i++) {
+                    particles.push({
+                        x: Math.random() * canvas.width,
+                        y: canvas.height * 0.25 + Math.random() * canvas.height * 0.55,
+                        vx: (Math.random() - 0.5) * 7,
+                        vy: (Math.random() - 0.5) * 7,
+                        life: 70 + Math.random() * 70,
+                        size: 2 + Math.random() * 3,
+                        hue: Math.random() * 360,
+                    });
+                }
+            }, 750);
+
+            if (animFrame) cancelAnimationFrame(animFrame);
+            animateFireworks();
+        }
+
+        function animateFireworks() {
+            ctx.fillStyle = 'rgba(0,0,0,0.12)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = particles.length - 1; i >= 0; i--) {
+                const p = particles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.vy += 0.04;
+                p.life--;
+                p.hue += 0.6;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = `hsl(${p.hue}, 100%, 55%)`;
+                ctx.shadowColor = `hsl(${p.hue}, 100%, 50%)`;
+                ctx.shadowBlur = 14;
+                ctx.fill();
+                ctx.shadowBlur = 0;
+
+                if (p.life <= 0) {
+                    particles.splice(i, 1);
+                }
+            }
+
+            animFrame = requestAnimationFrame(animateFireworks);
+        }
+
+        function createSparkles() {
+            for (let i = 0; i < 35; i++) {
+                const s = document.createElement('div');
+                s.className = 'sparkle';
+                s.style.left = Math.random() * 100 + 'vw';
+                s.style.bottom = 0;
+                s.style.animationDuration = (2 + Math.random() * 3) + 's';
+                s.style.animationDelay = (Math.random() * 4) + 's';
+                document.body.appendChild(s);
+            }
+        }
+
+        function createBalloons() {
+            const colors = ['#e74c3c', '#3498db', '#f1c40f', '#e91e8c', '#9b59b6', '#e67e22', '#1abc9c', '#2ecc71'];
+            let balloonInterval = setInterval(() => {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                balloon.style.left = Math.random() * 100 + 'vw';
+                balloon.style.background = color;
+                balloon.style.animationDuration = (5 + Math.random() * 6) + 's';
+                const size = 40 + Math.random() * 35;
+                balloon.style.width = size + 'px';
+                balloon.style.height = (size * 1.3) + 'px';
+                document.body.appendChild(balloon);
+                setTimeout(() => balloon.remove(), 13000);
+            }, 500);
+            window._balloonInterval = balloonInterval;
+        }
+
+        function createConfetti() {
+            const colors = ['#e74c3c', '#f1c40f', '#2ecc71', '#3498db', '#e91e8c', '#f39c12', '#9b59b6', '#1abc9c', '#fd79a8'];
+            let confettiInterval = setInterval(() => {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.background = color;
+                conf.style.animationDuration = (2.5 + Math.random() * 3.5) + 's';
+                const size = 5 + Math.random() * 10;
+                conf.style.width = size + 'px';
+                conf.style.height = size + 'px';
+                conf.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                document.body.appendChild(conf);
+                setTimeout(() => conf.remove(), 7000);
+            }, 130);
+            window._confettiInterval = confettiInterval;
+        }
+
+        function cleanupEffects() {
+            if (fireworksInterval) { clearInterval(fireworksInterval);
+                fireworksInterval = null; }
+            if (animFrame) { cancelAnimationFrame(animFrame);
+                animFrame = null; }
+            if (window._balloonInterval) { clearInterval(window._balloonInterval);
+                window._balloonInterval = null; }
+            if (window._confettiInterval) { clearInterval(window._confettiInterval);
+                window._confettiInterval = null; }
+            document.querySelectorAll('.balloon, .confetti, .sparkle').forEach(el => el.remove());
+            particles = [];
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // ──────────────────────────────────────────────────────────
+        //  INIT – load from Firestore
+        // ──────────────────────────────────────────────────────────
+        async function initApp() {
+            const container = document.getElementById('birthdayListContainer');
+            if (container) {
+                container.innerHTML = `<div class="empty-msg"><span class="loading-spinner"></span> Loading from cloud...</div>`;
+            }
+
+            await loadBirthdaysFromFirestore();
+
+            // Seed sample data if empty
+            if (allBirthdays.length === 0) {
+                const samples = [
+                    { name: 'Buddhi Akka', date: '01-15' },
+                    { name: 'Nimal Sir', date: '03-22' },
+                    { name: 'Kamala Aunty', date: '07-08' },
+                ];
+                for (const s of samples) {
+                    const result = await addBirthdayToFirestore(s.name, s.date);
+                    if (result) allBirthdays.push(result);
+                }
+                allBirthdays.sort((a, b) => a.date.localeCompare(b.date));
+                showToast('🌱 Seeded sample birthdays to cloud!', 'success');
+            }
+
+            if (currentView === 'dashboard') {
+                renderBirthdayList();
+            }
+
+            startCountdown();
+        }
+
+        // ──────────────────────────────────────────────────────────
+        //  EXPOSE GLOBALS
+        // ──────────────────────────────────────────────────────────
+        window.startCelebration = startCelebration;
+        window.navigateTo = navigateTo;
+        window.handleAdminLogin = handleAdminLogin;
+        window.handleLogout = handleLogout;
+        window.handleAddBirthday = handleAddBirthday;
+        window.startEdit = startEdit;
+        window.cancelEdit = cancelEdit;
+        window.saveEdit = saveEdit;
+        window.handleDelete = handleDelete;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                if (currentView === 'dashboard' || currentView === 'admin') {
+                    navigateTo('main');
+                }
+            }
+        });
+
+        // ──────────────────────────────────────────────────────────
+        //  START APP
+        // ──────────────────────────────────────────────────────────
+        document.addEventListener('DOMContentLoaded', () => {
+            initApp().catch(err => {
+                console.error('Init error:', err);
+                showToast('❌ Failed to connect to Firebase', 'error');
+                startCountdown();
+            });
+        });
+
+        console.log('👑 Royal Birthday Wishes with Firebase (your config)!');
+        console.log('📋 Admin: username="admin", password="admin123"');
+        console.log('🔥 Firestore is the database');
+    </script>
+</body>
+</html>
