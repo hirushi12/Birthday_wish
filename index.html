@@ -6,13 +6,8 @@
     <title>Royal Birthday Wishes 👑</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
     <style>
-        /* ─── All CSS (same as before – I've kept it compact) ─── */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
+        /* ===== RESET & BASE ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
             font-family: 'Poppins', sans-serif;
             background: #0a0a0a;
@@ -23,74 +18,40 @@
             position: relative;
             -webkit-font-smoothing: antialiased;
         }
-        input, button, textarea {
-            font-family: 'Poppins', sans-serif;
-        }
+        input, button, textarea { font-family: 'Poppins', sans-serif; }
         .galaxy {
-            position: fixed;
-            inset: 0;
+            position: fixed; inset: 0;
             background: radial-gradient(circle at 30% 30%, #1a1a3e 0%, #000 80%);
             z-index: -3;
         }
         .palace {
-            position: fixed;
-            inset: 0;
+            position: fixed; inset: 0;
             background: radial-gradient(ellipse at 50% 20%, #1a2a6c, #000 75%);
-            z-index: -2;
-            opacity: 0.6;
+            z-index: -2; opacity: 0.6;
         }
         .view {
-            position: fixed;
-            inset: 0;
-            z-index: 20;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
+            position: fixed; inset: 0; z-index: 20;
+            display: none; flex-direction: column; align-items: center; justify-content: center;
+            padding: 20px; overflow-y: auto; -webkit-overflow-scrolling: touch;
         }
-        .view.active {
-            display: flex;
-        }
+        .view.active { display: flex; }
         .countdown {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 140px;
-            font-weight: 900;
-            color: #e50914;
-            z-index: 1000;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 10px;
-            text-shadow: 0 0 60px rgba(229, 9, 20, 0.5);
+            position: fixed; inset: 0; background: #000;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 140px; font-weight: 900; color: #e50914;
+            z-index: 1000; font-family: 'Cinzel', serif; letter-spacing: 10px;
+            text-shadow: 0 0 60px rgba(229,9,20,0.5);
             transition: opacity 0.5s;
         }
-        .countdown.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
+        .countdown.hidden { opacity: 0; pointer-events: none; }
         .introText {
-            position: fixed;
-            inset: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: 'Cinzel', serif;
-            font-size: 64px;
-            letter-spacing: 8px;
-            background: #000;
-            color: #f5d742;
-            z-index: 900;
-            animation: zoomFade 4.5s forwards;
-            animation-delay: 3s;
-            text-shadow: 0 0 40px rgba(245, 215, 66, 0.3);
-            padding: 20px;
-            text-align: center;
+            position: fixed; inset: 0;
+            display: flex; justify-content: center; align-items: center;
+            font-family: 'Cinzel', serif; font-size: 64px; letter-spacing: 8px;
+            background: #000; color: #f5d742; z-index: 900;
+            animation: zoomFade 4.5s forwards; animation-delay: 3s;
+            text-shadow: 0 0 40px rgba(245,215,66,0.3);
+            padding: 20px; text-align: center;
         }
         @keyframes zoomFade {
             0% { transform: scale(0.4); opacity: 0; }
@@ -102,21 +63,18 @@
             .countdown { font-size: 80px; }
         }
         #fireworks {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
+            position: fixed; top: 0; left: 0; z-index: -1;
         }
         .card {
-            background: rgba(10, 10, 30, 0.8);
+            background: rgba(10,10,30,0.8);
             padding: 40px 36px 45px;
             border-radius: 32px;
             backdrop-filter: blur(18px);
             -webkit-backdrop-filter: blur(18px);
             text-align: center;
-            border: 1px solid rgba(245, 215, 66, 0.2);
-            box-shadow: 0 0 60px rgba(245, 215, 66, 0.1);
-            max-width: 480px;
+            border: 1px solid rgba(245,215,66,0.2);
+            box-shadow: 0 0 60px rgba(245,215,66,0.1);
+            max-width: 520px;
             width: 100%;
             animation: cardGlow 3s infinite alternate;
             max-height: 90vh;
@@ -124,131 +82,89 @@
             -webkit-overflow-scrolling: touch;
         }
         @keyframes cardGlow {
-            0% { box-shadow: 0 0 40px rgba(245, 215, 66, 0.1); }
-            100% { box-shadow: 0 0 90px rgba(245, 215, 66, 0.25); }
+            0% { box-shadow: 0 0 40px rgba(245,215,66,0.1); }
+            100% { box-shadow: 0 0 90px rgba(245,215,66,0.25); }
         }
         .card h2 {
             font-family: 'Cinzel', serif;
-            font-size: 26px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            color: #f5d742;
-            margin-bottom: 8px;
+            font-size: 26px; font-weight: 600; letter-spacing: 2px;
+            color: #f5d742; margin-bottom: 8px;
         }
         .card p.sub {
-            color: rgba(255, 255, 255, 0.55);
-            font-size: 14px;
-            margin-bottom: 22px;
-            letter-spacing: 1px;
+            color: rgba(255,255,255,0.55);
+            font-size: 14px; margin-bottom: 22px; letter-spacing: 1px;
         }
         .card button {
-            padding: 14px 40px;
-            border: none;
-            border-radius: 50px;
+            padding: 14px 40px; border: none; border-radius: 50px;
             background: linear-gradient(135deg, #f5d742, #e6a100);
-            font-weight: 700;
-            font-size: 17px;
-            cursor: pointer;
-            color: #1a1a2e;
-            transition: all 0.25s;
-            box-shadow: 0 4px 25px rgba(245, 215, 66, 0.25);
-            letter-spacing: 1px;
-            touch-action: manipulation;
-            width: 100%;
-            max-width: 300px;
+            font-weight: 700; font-size: 17px; cursor: pointer;
+            color: #1a1a2e; transition: all 0.25s;
+            box-shadow: 0 4px 25px rgba(245,215,66,0.25);
+            letter-spacing: 1px; touch-action: manipulation;
+            width: 100%; max-width: 300px;
         }
-        .card button:hover {
-            transform: scale(1.04);
-            box-shadow: 0 0 40px rgba(245, 215, 66, 0.4);
-        }
-        .card button:active {
-            transform: scale(0.96);
-        }
+        .card button:hover { transform: scale(1.04); box-shadow: 0 0 40px rgba(245,215,66,0.4); }
+        .card button:active { transform: scale(0.96); }
         .card .admin-link {
-            display: inline-block;
-            margin-top: 16px;
-            color: rgba(255, 255, 255, 0.25);
-            font-size: 13px;
-            text-decoration: none;
-            letter-spacing: 1px;
-            transition: color 0.2s;
-            cursor: pointer;
-            padding: 8px 16px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: inline-block; margin-top: 16px;
+            color: rgba(255,255,255,0.25); font-size: 13px;
+            text-decoration: none; letter-spacing: 1px;
+            cursor: pointer; padding: 8px 16px;
+            border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);
+            transition: color 0.2s, border-color 0.2s;
         }
         .card .admin-link:hover {
-            color: rgba(255, 255, 255, 0.5);
-            border-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255,255,255,0.5);
+            border-color: rgba(255,255,255,0.1);
         }
         .card .back-link {
-            display: inline-block;
-            margin-top: 14px;
-            color: rgba(255, 255, 255, 0.3);
-            font-size: 13px;
-            text-decoration: none;
-            cursor: pointer;
-            padding: 6px 14px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            display: inline-block; margin-top: 14px;
+            color: rgba(255,255,255,0.3); font-size: 13px;
+            cursor: pointer; padding: 6px 14px;
+            border-radius: 16px; border: 1px solid rgba(255,255,255,0.05);
             transition: all 0.2s;
         }
         .card .back-link:hover {
-            color: rgba(255, 255, 255, 0.5);
-            border-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255,255,255,0.5);
+            border-color: rgba(255,255,255,0.1);
         }
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
         #birthdayText {
             font-family: 'Cinzel', serif;
-            font-size: 44px;
-            font-weight: 800;
+            font-size: 44px; font-weight: 800;
             color: #f5d742;
-            text-shadow: 0 0 30px rgba(245, 215, 66, 0.2);
-            line-height: 1.3;
-            min-height: 70px;
+            text-shadow: 0 0 30px rgba(245,215,66,0.2);
+            line-height: 1.3; min-height: 70px;
             word-break: break-word;
         }
-        #birthdayText .highlight {
-            color: #ffd700;
-            text-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
-        }
+        #birthdayText .highlight { color: #ffd700; text-shadow: 0 0 40px rgba(255,215,0,0.4); }
         @media (max-width: 500px) {
             #birthdayText { font-size: 28px; min-height: 50px; }
             .card { padding: 28px 20px 32px; }
             .card h2 { font-size: 20px; }
         }
-        @media (max-width: 380px) {
-            #birthdayText { font-size: 22px; }
-        }
+        @media (max-width: 380px) { #birthdayText { font-size: 22px; } }
+        /* ===== CAKE ===== */
         .cake {
             margin-top: 24px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: flex; flex-direction: column; align-items: center;
         }
         .layer {
-            width: 180px;
-            height: 38px;
+            width: 180px; height: 38px;
             background: linear-gradient(to right, #f5d742, #e6a100);
-            border-radius: 16px;
-            margin: 3px auto;
+            border-radius: 16px; margin: 3px auto;
             box-shadow: inset 0 -3px 0 rgba(0,0,0,0.12);
         }
         .layer:nth-child(2) {
-            width: 150px;
-            height: 32px;
+            width: 150px; height: 32px;
             background: linear-gradient(to right, #f0c840, #d49000);
         }
         .layer:nth-child(3) {
-            width: 120px;
-            height: 26px;
+            width: 120px; height: 26px;
             background: linear-gradient(to right, #e8b830, #c08000);
         }
         .candle {
-            width: 10px;
-            height: 38px;
+            width: 10px; height: 38px;
             background: linear-gradient(to right, #f0f0f0, #d0d0d0);
             margin: 0 auto 3px;
             position: relative;
@@ -256,16 +172,13 @@
             box-shadow: inset -2px 0 4px rgba(0,0,0,0.08);
         }
         .flame {
-            width: 16px;
-            height: 20px;
+            width: 16px; height: 20px;
             background: radial-gradient(circle at 30% 20%, #fff7a0, #f5a000);
             border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            position: absolute;
-            top: -20px;
-            left: 50%;
+            position: absolute; top: -20px; left: 50%;
             transform: translateX(-50%);
             animation: flicker 0.18s infinite alternate;
-            box-shadow: 0 0 40px rgba(245, 160, 0, 0.5);
+            box-shadow: 0 0 40px rgba(245,160,0,0.5);
         }
         @keyframes flicker {
             0% { transform: translateX(-50%) scale(1) rotate(-2deg); }
@@ -278,50 +191,35 @@
             .candle { height: 30px; width: 8px; }
             .flame { width: 13px; height: 16px; top: -16px; }
         }
+        /* ===== EFFECTS ===== */
         .sparkle {
-            position: fixed;
-            width: 6px;
-            height: 6px;
-            background: #fff;
+            position: fixed; width: 6px; height: 6px; background: #fff;
             transform: rotate(45deg);
             animation: spark 3s linear infinite;
-            z-index: 5;
-            pointer-events: none;
-            opacity: 0;
+            z-index: 5; pointer-events: none; opacity: 0;
         }
         @keyframes spark {
             0% { transform: translateY(0) rotate(45deg); opacity: 0.9; }
             100% { transform: translateY(-400px) rotate(45deg); opacity: 0; }
         }
         .balloon {
-            position: fixed;
-            bottom: -140px;
-            width: 55px;
-            height: 72px;
+            position: fixed; bottom: -140px;
+            width: 55px; height: 72px;
             border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
             animation: floatUp linear infinite;
-            z-index: 4;
-            pointer-events: none;
+            z-index: 4; pointer-events: none;
             box-shadow: inset -6px -6px 16px rgba(0,0,0,0.15);
         }
         .balloon::after {
-            content: '';
-            position: absolute;
-            width: 1.5px;
-            height: 50px;
+            content: ''; position: absolute;
+            width: 1.5px; height: 50px;
             background: rgba(255,255,255,0.2);
-            left: 50%;
-            bottom: -48px;
-            transform: translateX(-50%);
+            left: 50%; bottom: -48px; transform: translateX(-50%);
         }
         .balloon::before {
-            content: '';
-            position: absolute;
-            width: 10px;
-            height: 12px;
-            background: inherit;
-            bottom: -5px;
-            left: 50%;
+            content: ''; position: absolute;
+            width: 10px; height: 12px; background: inherit;
+            bottom: -5px; left: 50%;
             transform: translateX(-50%) rotate(45deg);
             border-radius: 0 0 50% 50%;
             clip-path: polygon(0% 0%, 100% 0%, 50% 100%);
@@ -331,258 +229,154 @@
             100% { transform: translateY(-120vh) rotate(15deg) scale(0.7); opacity: 0; }
         }
         .confetti {
-            position: fixed;
-            width: 8px;
-            height: 8px;
-            top: -20px;
+            position: fixed; width: 8px; height: 8px; top: -20px;
             animation: confettiFall linear infinite;
-            z-index: 3;
-            pointer-events: none;
-            border-radius: 2px;
-            opacity: 0.9;
+            z-index: 3; pointer-events: none;
+            border-radius: 2px; opacity: 0.9;
         }
         @keyframes confettiFall {
             0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
             100% { transform: translateY(110vh) rotate(720deg) scale(0.3); opacity: 0; }
         }
+        /* ===== ADMIN LOGIN ===== */
         .admin-login-form {
-            width: 100%;
-            max-width: 320px;
-            margin: 0 auto;
+            width: 100%; max-width: 320px; margin: 0 auto;
         }
         .admin-login-form input {
-            width: 100%;
-            padding: 14px 18px;
-            border-radius: 12px;
+            width: 100%; padding: 14px 18px; border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.1);
             background: rgba(255,255,255,0.05);
-            color: #fff;
-            font-size: 15px;
-            margin-bottom: 14px;
-            transition: border-color 0.3s;
-            outline: none;
+            color: #fff; font-size: 15px; margin-bottom: 14px;
+            transition: border-color 0.3s; outline: none;
             -webkit-appearance: none;
         }
-        .admin-login-form input:focus {
-            border-color: #f5d742;
-        }
-        .admin-login-form input::placeholder {
-            color: rgba(255,255,255,0.3);
-        }
+        .admin-login-form input:focus { border-color: #f5d742; }
+        .admin-login-form input::placeholder { color: rgba(255,255,255,0.3); }
         .admin-login-form .error-msg {
-            color: #ff6b6b;
-            font-size: 13px;
-            margin-bottom: 12px;
-            min-height: 20px;
+            color: #ff6b6b; font-size: 13px; margin-bottom: 12px; min-height: 20px;
         }
         .admin-login-form button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 12px;
+            width: 100%; padding: 14px; border: none; border-radius: 12px;
             background: linear-gradient(135deg, #f5d742, #e6a100);
-            font-weight: 700;
-            font-size: 17px;
-            cursor: pointer;
-            color: #1a1a2e;
-            transition: all 0.25s;
+            font-weight: 700; font-size: 17px; cursor: pointer;
+            color: #1a1a2e; transition: all 0.25s;
             touch-action: manipulation;
         }
-        .admin-login-form button:active {
-            transform: scale(0.96);
-        }
+        .admin-login-form button:active { transform: scale(0.96); }
+        /* ===== ADMIN DASHBOARD ===== */
         .admin-dashboard {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            text-align: left;
+            width: 100%; max-width: 500px; margin: 0 auto; text-align: left;
         }
         .admin-dashboard .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 18px;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-wrap: wrap; gap: 10px; margin-bottom: 18px;
         }
         .admin-dashboard .header h3 {
-            font-family: 'Cinzel', serif;
-            font-size: 20px;
-            color: #f5d742;
+            font-family: 'Cinzel', serif; font-size: 20px; color: #f5d742;
         }
         .admin-dashboard .header .logout-btn {
-            padding: 6px 18px;
-            border-radius: 20px;
+            padding: 6px 18px; border-radius: 20px;
             border: 1px solid rgba(255,255,255,0.15);
-            background: transparent;
-            color: rgba(255,255,255,0.5);
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s;
+            background: transparent; color: rgba(255,255,255,0.5);
+            font-size: 13px; cursor: pointer; transition: all 0.2s;
             touch-action: manipulation;
         }
-        .admin-dashboard .header .logout-btn:active {
-            transform: scale(0.95);
-        }
+        .admin-dashboard .header .logout-btn:active { transform: scale(0.95); }
         .admin-dashboard .header .logout-btn:hover {
             border-color: rgba(255,255,255,0.3);
             color: rgba(255,255,255,0.8);
         }
         .admin-dashboard .add-form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+            display: flex; flex-direction: column; gap: 10px;
             margin-bottom: 20px;
             background: rgba(255,255,255,0.03);
-            padding: 16px;
-            border-radius: 16px;
+            padding: 16px; border-radius: 16px;
             border: 1px solid rgba(255,255,255,0.05);
         }
         .admin-dashboard .add-form .row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            display: flex; gap: 10px; flex-wrap: wrap;
         }
         .admin-dashboard .add-form .row input {
-            flex: 1;
-            min-width: 120px;
-            padding: 12px 14px;
-            border-radius: 10px;
+            flex: 1; min-width: 120px;
+            padding: 12px 14px; border-radius: 10px;
             border: 1px solid rgba(255,255,255,0.08);
             background: rgba(255,255,255,0.04);
-            color: #fff;
-            font-size: 14px;
-            outline: none;
+            color: #fff; font-size: 14px; outline: none;
             transition: border-color 0.3s;
             -webkit-appearance: none;
         }
-        .admin-dashboard .add-form .row input:focus {
-            border-color: #f5d742;
-        }
-        .admin-dashboard .add-form .row input::placeholder {
-            color: rgba(255,255,255,0.25);
-        }
+        .admin-dashboard .add-form .row input:focus { border-color: #f5d742; }
+        .admin-dashboard .add-form .row input::placeholder { color: rgba(255,255,255,0.25); }
         .admin-dashboard .add-form .row button {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 10px;
+            padding: 12px 24px; border: none; border-radius: 10px;
             background: linear-gradient(135deg, #f5d742, #e6a100);
-            font-weight: 700;
-            font-size: 14px;
-            cursor: pointer;
-            color: #1a1a2e;
-            transition: all 0.2s;
-            touch-action: manipulation;
-            white-space: nowrap;
+            font-weight: 700; font-size: 14px; cursor: pointer;
+            color: #1a1a2e; transition: all 0.2s;
+            touch-action: manipulation; white-space: nowrap;
         }
-        .admin-dashboard .add-form .row button:active {
-            transform: scale(0.95);
-        }
+        .admin-dashboard .add-form .row button:active { transform: scale(0.95); }
         .admin-dashboard .birthday-list {
-            max-height: 300px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            margin-top: 6px;
+            max-height: 300px; overflow-y: auto;
+            -webkit-overflow-scrolling: touch; margin-top: 6px;
         }
         .admin-dashboard .birthday-list .item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 14px;
-            border-radius: 12px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 14px; border-radius: 12px;
             background: rgba(255,255,255,0.03);
             margin-bottom: 6px;
             border: 1px solid rgba(255,255,255,0.04);
             transition: background 0.2s;
-            gap: 10px;
-            flex-wrap: wrap;
+            gap: 10px; flex-wrap: wrap;
         }
         .admin-dashboard .birthday-list .item .info {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            flex: 1;
-            min-width: 100px;
+            display: flex; flex-direction: column; gap: 2px;
+            flex: 1; min-width: 100px;
         }
         .admin-dashboard .birthday-list .item .info .name {
-            font-weight: 600;
-            color: #fff;
-            font-size: 15px;
+            font-weight: 600; color: #fff; font-size: 15px;
         }
         .admin-dashboard .birthday-list .item .info .date {
-            color: rgba(255,255,255,0.4);
-            font-size: 13px;
+            color: rgba(255,255,255,0.4); font-size: 13px;
         }
         .admin-dashboard .birthday-list .item .actions {
-            display: flex;
-            gap: 6px;
-            flex-shrink: 0;
+            display: flex; gap: 6px; flex-shrink: 0;
         }
         .admin-dashboard .birthday-list .item .actions button {
-            padding: 6px 14px;
-            border: none;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            touch-action: manipulation;
+            padding: 6px 14px; border: none; border-radius: 8px;
+            font-size: 12px; font-weight: 600; cursor: pointer;
+            transition: all 0.2s; touch-action: manipulation;
         }
         .admin-dashboard .birthday-list .item .actions .edit-btn {
-            background: rgba(245,215,66,0.15);
-            color: #f5d742;
+            background: rgba(245,215,66,0.15); color: #f5d742;
         }
-        .admin-dashboard .birthday-list .item .actions .edit-btn:active {
-            transform: scale(0.92);
-        }
+        .admin-dashboard .birthday-list .item .actions .edit-btn:active { transform: scale(0.92); }
         .admin-dashboard .birthday-list .item .actions .delete-btn {
-            background: rgba(255,107,107,0.12);
-            color: #ff6b6b;
+            background: rgba(255,107,107,0.12); color: #ff6b6b;
         }
-        .admin-dashboard .birthday-list .item .actions .delete-btn:active {
-            transform: scale(0.92);
-        }
+        .admin-dashboard .birthday-list .item .actions .delete-btn:active { transform: scale(0.92); }
         .admin-dashboard .empty-msg {
             color: rgba(255,255,255,0.3);
-            text-align: center;
-            padding: 30px 0;
-            font-size: 14px;
+            text-align: center; padding: 30px 0; font-size: 14px;
         }
         .edit-inline {
-            display: none;
-            gap: 8px;
-            flex-wrap: wrap;
-            width: 100%;
-            padding-top: 8px;
+            display: none; gap: 8px; flex-wrap: wrap;
+            width: 100%; padding-top: 8px;
             border-top: 1px solid rgba(255,255,255,0.05);
         }
-        .edit-inline.open {
-            display: flex;
-        }
+        .edit-inline.open { display: flex; }
         .edit-inline input {
-            flex: 1;
-            min-width: 80px;
-            padding: 8px 12px;
-            border-radius: 8px;
+            flex: 1; min-width: 80px;
+            padding: 8px 12px; border-radius: 8px;
             border: 1px solid rgba(255,255,255,0.08);
             background: rgba(255,255,255,0.04);
-            color: #fff;
-            font-size: 13px;
-            outline: none;
+            color: #fff; font-size: 13px; outline: none;
             -webkit-appearance: none;
         }
-        .edit-inline input:focus {
-            border-color: #f5d742;
-        }
+        .edit-inline input:focus { border-color: #f5d742; }
         .edit-inline button {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 8px;
-            font-size: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-            touch-action: manipulation;
+            padding: 8px 16px; border: none; border-radius: 8px;
+            font-size: 12px; font-weight: 600; cursor: pointer;
+            transition: all 0.2s; touch-action: manipulation;
         }
         .edit-inline .save-edit {
             background: linear-gradient(135deg, #f5d742, #e6a100);
@@ -592,48 +386,30 @@
             background: rgba(255,255,255,0.06);
             color: rgba(255,255,255,0.4);
         }
-        .birthday-list::-webkit-scrollbar {
-            width: 4px;
-        }
+        .birthday-list::-webkit-scrollbar { width: 4px; }
         .birthday-list::-webkit-scrollbar-track {
-            background: rgba(255,255,255,0.02);
-            border-radius: 4px;
+            background: rgba(255,255,255,0.02); border-radius: 4px;
         }
         .birthday-list::-webkit-scrollbar-thumb {
-            background: rgba(245,215,66,0.2);
-            border-radius: 4px;
+            background: rgba(245,215,66,0.2); border-radius: 4px;
         }
         .toast {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
+            position: fixed; bottom: 30px; left: 50%;
             transform: translateX(-50%) translateY(100px);
             background: rgba(10,10,30,0.9);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            padding: 14px 28px;
-            border-radius: 16px;
+            padding: 14px 28px; border-radius: 16px;
             border: 1px solid rgba(245,215,66,0.15);
-            color: #fff;
-            font-size: 14px;
-            z-index: 999;
+            color: #fff; font-size: 14px; z-index: 999;
             transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s;
-            opacity: 0;
-            pointer-events: none;
-            text-align: center;
-            max-width: 90vw;
+            opacity: 0; pointer-events: none;
+            text-align: center; max-width: 90vw;
             box-shadow: 0 8px 40px rgba(0,0,0,0.4);
         }
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
-            opacity: 1;
-        }
-        .toast.success {
-            border-color: rgba(46,213,115,0.3);
-        }
-        .toast.error {
-            border-color: rgba(255,107,107,0.3);
-        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .toast.success { border-color: rgba(46,213,115,0.3); }
+        .toast.error { border-color: rgba(255,107,107,0.3); }
         @media (max-width: 480px) {
             .admin-dashboard .add-form .row { flex-direction: column; }
             .admin-dashboard .add-form .row input { min-width: unset; width: 100%; }
@@ -660,39 +436,94 @@
         }
         .loading-spinner {
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: 20px; height: 20px;
             border: 3px solid rgba(255,255,255,0.1);
             border-top-color: #f5d742;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
-            margin-right: 8px;
-            vertical-align: middle;
+            margin-right: 8px; vertical-align: middle;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ===== IMAGE UPLOAD UI (admin) ===== */
+        .image-upload-section {
+            margin: 12px 0 8px;
+            padding: 12px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            width: 100%;
+        }
+        .image-upload-section label {
+            display: block; font-size: 13px;
+            color: rgba(255,255,255,0.6); margin-bottom: 4px;
+        }
+        .image-upload-section input[type="file"] {
+            width: 100%; padding: 8px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(255,255,255,0.03);
+            color: #fff; font-size: 13px; margin-bottom: 6px;
+            -webkit-appearance: none;
+        }
+        .image-upload-section .preview-thumbs {
+            display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px;
+        }
+        .image-upload-section .preview-thumbs img {
+            width: 60px; height: 60px; object-fit: cover;
+            border-radius: 8px; border: 2px solid rgba(245,215,66,0.2);
+        }
+        .image-upload-section .upload-btn {
+            padding: 6px 16px; border: none; border-radius: 8px;
+            background: linear-gradient(135deg, #f5d742, #e6a100);
+            font-weight: 600; font-size: 12px; cursor: pointer;
+            color: #1a1a2e; transition: all 0.2s;
+            touch-action: manipulation; margin-top: 6px;
+        }
+        .image-upload-section .upload-btn:active { transform: scale(0.95); }
+
+        /* ===== GALLERY IN MAIN CARD ===== */
+        .gallery-grid {
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 12px; margin: 16px 0 8px;
+        }
+        .gallery-grid img {
+            width: 100px; height: 100px; object-fit: cover;
+            border-radius: 16px;
+            border: 2px solid rgba(245,215,66,0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-grid img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(245,215,66,0.3);
+        }
+        @media (max-width: 500px) {
+            .gallery-grid img { width: 70px; height: 70px; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- ─── Backgrounds ─── -->
+    <!-- ===== BACKGROUNDS ===== -->
     <div class="galaxy"></div>
     <div class="palace"></div>
 
-    <!-- ─── Countdown ─── -->
+    <!-- ===== COUNTDOWN ===== -->
     <div class="countdown" id="countdown">3</div>
 
-    <!-- ─── Intro ─── -->
+    <!-- ===== INTRO ===== -->
     <div class="introText">👑 A Royal Birthday Celebration 👑</div>
 
-    <!-- ─── Fireworks Canvas ─── -->
+    <!-- ===== FIREWORKS CANVAS ===== -->
     <canvas id="fireworks"></canvas>
 
-    <!-- ─── Music ─── -->
+    <!-- ===== MUSIC ===== -->
     <audio id="music" loop>
         <source src="music.mp3" type="audio/mpeg" />
     </audio>
 
-    <!-- ─── VIEW: Main Celebration ─── -->
+    <!-- ===== VIEW: MAIN CELEBRATION ===== -->
     <div class="view active" id="viewMain">
         <div class="card" id="startCard">
             <h2>✦ The Royal Moment Awaits ✦</h2>
@@ -703,6 +534,8 @@
 
         <div class="card hidden" id="celebrationCard">
             <h1 id="birthdayText"></h1>
+            <!-- Gallery will be injected here -->
+            <div id="galleryContainer" class="gallery-grid"></div>
             <div class="cake">
                 <div class="layer"></div>
                 <div class="layer"></div>
@@ -715,7 +548,7 @@
         </div>
     </div>
 
-    <!-- ─── VIEW: Admin Login ─── -->
+    <!-- ===== VIEW: ADMIN LOGIN ===== -->
     <div class="view" id="viewAdmin">
         <div class="card" style="max-width:400px;">
             <h2>⚜️ Admin Access</h2>
@@ -730,9 +563,9 @@
         </div>
     </div>
 
-    <!-- ─── VIEW: Admin Dashboard ─── -->
+    <!-- ===== VIEW: ADMIN DASHBOARD ===== -->
     <div class="view" id="viewDashboard">
-        <div class="card" style="max-width:520px;padding:28px 24px 32px;">
+        <div class="card" style="max-width:540px;padding:28px 24px 32px;">
             <div class="admin-dashboard">
                 <div class="header">
                     <h3>⚜️ Birthday Manager</h3>
@@ -756,17 +589,18 @@
         </div>
     </div>
 
-    <!-- ─── Toast ─── -->
+    <!-- ===== TOAST ===== -->
     <div class="toast" id="toast"></div>
 
-    <!-- ─── Firebase SDK (Compat) ─── -->
+    <!-- ===== FIREBASE SDK (Compat) + Storage ===== -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 
     <script>
-        // ──────────────────────────────────────────────────────────
-        //  🔥 FIREBASE CONFIG – YOUR CONFIG (inserted directly)
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // 🔥 FIREBASE CONFIG (your provided config)
+        // ================================================================
         const firebaseConfig = {
             apiKey: "AIzaSyC-fMaurAgCH_4KqxfqkegTSfPkXAXQZbQ",
             authDomain: "birthdaywishes-b037b.firebaseapp.com",
@@ -776,27 +610,28 @@
             appId: "1:1098062845893:web:5655c0247519bae6a11dac"
         };
 
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
+        const storage = firebase.storage();
 
-        // ──────────────────────────────────────────────────────────
-        //  STATE
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // STATE
+        // ================================================================
         let birthdayName = '';
         let birthdayData = null;
         let currentView = 'main';
         let isCelebrating = false;
-        let editingId = null; // Firestore document ID
-        let allBirthdays = []; // cached array of {id, name, date}
+        let editingId = null;
+        let allBirthdays = [];
 
-        // ──────────────────────────────────────────────────────────
-        //  DOM REFS
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // DOM REFS
+        // ================================================================
         const countdownEl = document.getElementById('countdown');
         const startCard = document.getElementById('startCard');
         const celebrationCard = document.getElementById('celebrationCard');
         const birthdayTextEl = document.getElementById('birthdayText');
+        const galleryContainer = document.getElementById('galleryContainer');
         const musicEl = document.getElementById('music');
         const startSub = document.getElementById('startSub');
 
@@ -806,9 +641,9 @@
         let animFrame = null;
         let fireworksInterval = null;
 
-        // ──────────────────────────────────────────────────────────
-        //  CANVAS
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // CANVAS RESIZE
+        // ================================================================
         function resizeCanvas() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
@@ -816,9 +651,9 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        // ──────────────────────────────────────────────────────────
-        //  TOAST
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // TOAST
+        // ================================================================
         let toastTimeout = null;
 
         function showToast(msg, type = 'success') {
@@ -833,9 +668,9 @@
             }, 2800);
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  NAVIGATION
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // NAVIGATION
+        // ================================================================
         function navigateTo(view) {
             document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
             if (view === 'main') {
@@ -852,9 +687,9 @@
             }
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  ADMIN LOGIN
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // ADMIN LOGIN
+        // ================================================================
         const ADMIN_CREDENTIALS = { username: 'admin', password: 'admin123' };
 
         function handleAdminLogin(e) {
@@ -884,11 +719,9 @@
             showToast('🔓 Logged out', 'success');
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  🔥 FIRESTORE CRUD OPERATIONS
-        // ──────────────────────────────────────────────────────────
-
-        // Read all birthdays from Firestore
+        // ================================================================
+        // 🔥 FIRESTORE CRUD
+        // ================================================================
         async function loadBirthdaysFromFirestore() {
             try {
                 const snapshot = await db.collection('birthdays').orderBy('date').get();
@@ -907,14 +740,16 @@
             }
         }
 
-        // Add a new birthday to Firestore
         async function addBirthdayToFirestore(name, date) {
             try {
                 const docRef = await db.collection('birthdays').add({
                     name: name.trim(),
-                    date: date // format: MM-DD
+                    date: date,
+                    image1: null,
+                    image2: null,
+                    image3: null
                 });
-                return { id: docRef.id, name: name.trim(), date: date };
+                return { id: docRef.id, name: name.trim(), date: date, image1: null, image2: null, image3: null };
             } catch (error) {
                 console.error('Error adding birthday:', error);
                 showToast('❌ Failed to save to cloud', 'error');
@@ -922,7 +757,6 @@
             }
         }
 
-        // Update a birthday in Firestore
         async function updateBirthdayInFirestore(id, name, date) {
             try {
                 await db.collection('birthdays').doc(id).update({
@@ -937,7 +771,6 @@
             }
         }
 
-        // Delete a birthday from Firestore
         async function deleteBirthdayFromFirestore(id) {
             try {
                 await db.collection('birthdays').doc(id).delete();
@@ -949,9 +782,47 @@
             }
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  TODAY'S BIRTHDAY (from cached allBirthdays)
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // 🖼️ IMAGE UPLOAD (Storage + Firestore update)
+        // ================================================================
+        async function uploadImagesForBirthday(id, files) {
+            if (!files || files.length !== 3) return false;
+            try {
+                const urls = [];
+                for (let i = 0; i < 3; i++) {
+                    const file = files[i];
+                    if (file) {
+                        const path = `birthday_images/${id}/${Date.now()}_${i}_${file.name}`;
+                        const ref = storage.ref(path);
+                        await ref.put(file);
+                        const url = await ref.getDownloadURL();
+                        urls.push(url);
+                    } else {
+                        urls.push(null);
+                    }
+                }
+                await db.collection('birthdays').doc(id).update({
+                    image1: urls[0],
+                    image2: urls[1],
+                    image3: urls[2]
+                });
+                const index = allBirthdays.findIndex(item => item.id === id);
+                if (index !== -1) {
+                    allBirthdays[index].image1 = urls[0];
+                    allBirthdays[index].image2 = urls[1];
+                    allBirthdays[index].image3 = urls[2];
+                }
+                return true;
+            } catch (error) {
+                console.error('Error uploading images:', error);
+                showToast('❌ Image upload failed', 'error');
+                return false;
+            }
+        }
+
+        // ================================================================
+        // TODAY'S BIRTHDAY
+        // ================================================================
         function getTodayStr() {
             const d = new Date();
             const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -964,9 +835,9 @@
             return allBirthdays.find(item => item.date === today) || null;
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  RENDER BIRTHDAY LIST (Admin) – from allBirthdays
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // RENDER BIRTHDAY LIST (Admin) with image upload UI
+        // ================================================================
         function renderBirthdayList() {
             const container = document.getElementById('birthdayListContainer');
             if (!container) return;
@@ -980,11 +851,13 @@
             allBirthdays.forEach((item) => {
                 const isEditing = editingId === item.id;
                 const dateDisplay = formatDateDisplay(item.date);
+                const hasImages = item.image1 || item.image2 || item.image3;
                 html += `
                     <div class="item" data-id="${item.id}">
                         <div class="info">
                             <div class="name">${escapeHtml(item.name)}</div>
                             <div class="date">📅 ${dateDisplay}</div>
+                            ${hasImages ? '<div style="font-size:11px;color:rgba(255,255,255,0.3);">🖼️ Images uploaded</div>' : ''}
                         </div>
                         <div class="actions">
                             <button class="edit-btn" onclick="startEdit('${item.id}')">✏️ Edit</button>
@@ -993,9 +866,18 @@
                         <div class="edit-inline ${isEditing ? 'open' : ''}" id="editRow_${item.id}">
                             <input type="text" id="editName_${item.id}" value="${escapeHtml(item.name)}" placeholder="Name" />
                             <input type="date" id="editDate_${item.id}" value="${item.date}" />
-                            <div class="row-btns">
+                            <div class="row-btns" style="width:100%;">
                                 <button class="save-edit" onclick="saveEdit('${item.id}')">💾 Save</button>
                                 <button class="cancel-edit" onclick="cancelEdit()">Cancel</button>
+                            </div>
+                            <!-- Image Upload Section -->
+                            <div class="image-upload-section">
+                                <label>📸 Upload 3 Images</label>
+                                <input type="file" id="imgUpload1_${item.id}" accept="image/*" />
+                                <input type="file" id="imgUpload2_${item.id}" accept="image/*" />
+                                <input type="file" id="imgUpload3_${item.id}" accept="image/*" />
+                                <div class="preview-thumbs" id="preview_${item.id}"></div>
+                                <button class="upload-btn" onclick="handleImageUpload('${item.id}')">⬆️ Upload Images</button>
                             </div>
                         </div>
                     </div>
@@ -1003,6 +885,32 @@
             });
 
             container.innerHTML = html;
+
+            // Attach preview listeners
+            allBirthdays.forEach(item => {
+                for (let i = 1; i <= 3; i++) {
+                    const input = document.getElementById(`imgUpload${i}_${item.id}`);
+                    if (input) {
+                        input.addEventListener('change', function(e) {
+                            const file = e.target.files[0];
+                            if (file) {
+                                const reader = new FileReader();
+                                reader.onload = function(ev) {
+                                    const previewContainer = document.getElementById(`preview_${item.id}`);
+                                    let img = previewContainer.querySelector(`[data-index="${i}"]`);
+                                    if (!img) {
+                                        img = document.createElement('img');
+                                        img.dataset.index = i;
+                                        previewContainer.appendChild(img);
+                                    }
+                                    img.src = ev.target.result;
+                                };
+                                reader.readAsDataURL(file);
+                            }
+                        });
+                    }
+                }
+            });
         }
 
         function formatDateDisplay(dateStr) {
@@ -1023,9 +931,9 @@
             return div.innerHTML;
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  ADMIN CRUD – using Firestore
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // ADMIN CRUD HANDLERS
+        // ================================================================
         async function handleAddBirthday() {
             const nameInput = document.getElementById('addName');
             const dateInput = document.getElementById('addDate');
@@ -1046,13 +954,11 @@
             const parts = date.split('-');
             const formatted = `${parts[1]}-${parts[2]}`;
 
-            // Check duplicate locally
             if (allBirthdays.some(item => item.name.toLowerCase() === name.toLowerCase() && item.date === formatted)) {
                 showToast('⚠️ This birthday already exists', 'error');
                 return;
             }
 
-            // Add to Firestore
             const result = await addBirthdayToFirestore(name, formatted);
             if (result) {
                 allBirthdays.push(result);
@@ -1100,10 +1006,9 @@
 
             const success = await updateBirthdayInFirestore(id, name, formatted);
             if (success) {
-                // Update local cache
                 const index = allBirthdays.findIndex(item => item.id === id);
                 if (index !== -1) {
-                    allBirthdays[index] = { id, name: name.trim(), date: formatted };
+                    allBirthdays[index] = { ...allBirthdays[index], name: name.trim(), date: formatted };
                     allBirthdays.sort((a, b) => a.date.localeCompare(b.date));
                 }
                 editingId = null;
@@ -1126,9 +1031,35 @@
             }
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  COUNTDOWN
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // 🖼️ HANDLE IMAGE UPLOAD (called from admin UI)
+        // ================================================================
+        async function handleImageUpload(id) {
+            const files = [];
+            for (let i = 1; i <= 3; i++) {
+                const input = document.getElementById(`imgUpload${i}_${id}`);
+                files.push(input && input.files.length > 0 ? input.files[0] : null);
+            }
+            if (files.every(f => f === null)) {
+                showToast('❌ Please select at least one image', 'error');
+                return;
+            }
+            const success = await uploadImagesForBirthday(id, files);
+            if (success) {
+                for (let i = 1; i <= 3; i++) {
+                    const input = document.getElementById(`imgUpload${i}_${id}`);
+                    if (input) input.value = '';
+                }
+                const preview = document.getElementById(`preview_${id}`);
+                if (preview) preview.innerHTML = '';
+                renderBirthdayList();
+                showToast('✅ Images uploaded successfully!', 'success');
+            }
+        }
+
+        // ================================================================
+        // COUNTDOWN
+        // ================================================================
         function startCountdown() {
             let count = 3;
             countdownEl.textContent = count;
@@ -1158,9 +1089,9 @@
             }, 1000);
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  CELEBRATION
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // CELEBRATION (with gallery)
+        // ================================================================
         function startCelebration() {
             if (isCelebrating) return;
             isCelebrating = true;
@@ -1168,8 +1099,23 @@
             startCard.classList.add('hidden');
             celebrationCard.classList.remove('hidden');
 
-            musicEl.play().catch(() => {});
+            // Show gallery images if any
+            if (birthdayData && (birthdayData.image1 || birthdayData.image2 || birthdayData.image3)) {
+                const urls = [birthdayData.image1, birthdayData.image2, birthdayData.image3];
+                galleryContainer.innerHTML = '';
+                urls.forEach((url, idx) => {
+                    if (url) {
+                        const img = document.createElement('img');
+                        img.src = url;
+                        img.alt = `Birthday image ${idx+1}`;
+                        galleryContainer.appendChild(img);
+                    }
+                });
+            } else {
+                galleryContainer.innerHTML = '';
+            }
 
+            musicEl.play().catch(() => {});
             typeEffect();
             startFireworks();
             createSparkles();
@@ -1197,9 +1143,9 @@
             }, 70);
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  FIREWORKS, SPARKLES, BALLOONS, CONFETTI
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // FIREWORKS, SPARKLES, BALLOONS, CONFETTI
+        // ================================================================
         function startFireworks() {
             if (fireworksInterval) clearInterval(fireworksInterval);
             fireworksInterval = setInterval(() => {
@@ -1311,9 +1257,9 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  INIT – load from Firestore
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // INIT – load from Firestore
+        // ================================================================
         async function initApp() {
             const container = document.getElementById('birthdayListContainer');
             if (container) {
@@ -1344,9 +1290,9 @@
             startCountdown();
         }
 
-        // ──────────────────────────────────────────────────────────
-        //  EXPOSE GLOBALS
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // EXPOSE GLOBALS
+        // ================================================================
         window.startCelebration = startCelebration;
         window.navigateTo = navigateTo;
         window.handleAdminLogin = handleAdminLogin;
@@ -1356,6 +1302,7 @@
         window.cancelEdit = cancelEdit;
         window.saveEdit = saveEdit;
         window.handleDelete = handleDelete;
+        window.handleImageUpload = handleImageUpload;
 
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
@@ -1365,9 +1312,9 @@
             }
         });
 
-        // ──────────────────────────────────────────────────────────
-        //  START APP
-        // ──────────────────────────────────────────────────────────
+        // ================================================================
+        // START APP
+        // ================================================================
         document.addEventListener('DOMContentLoaded', () => {
             initApp().catch(err => {
                 console.error('Init error:', err);
@@ -1376,9 +1323,9 @@
             });
         });
 
-        console.log('👑 Royal Birthday Wishes with Firebase (your config)!');
+        console.log('👑 Royal Birthday Wishes with Firebase + Image Upload!');
         console.log('📋 Admin: username="admin", password="admin123"');
-        console.log('🔥 Firestore is the database');
+        console.log('🖼️ Upload 3 images per birthday via admin dashboard.');
     </script>
 </body>
 </html>
